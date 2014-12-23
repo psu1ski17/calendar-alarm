@@ -179,12 +179,12 @@ public class AlarmManagerThread extends Thread {
 		}
 
 		long now = new Date().getTime();
-		Collection<Event> events = prov.getEventsFromCalendar(cal, now, now
+		Collection<Event> events = prov.getEventsFromCalendar(cal, now-DateUtils.HOUR_IN_MILLIS, now
 				+ DateUtils.DAY_IN_MILLIS);
 
 		List<Alarm> alarms = new ArrayList<Alarm>();
 		for (Event e : events) {
-			if (e.getBegin().after(new Date())) { // if start date has already
+			//if (e.getBegin().after(new Date())) { // if start date has already
 													// occurred, don't use this
 				appendText("Real Gcal event: " + e.getTitle() + " starts at "
 						+ e.getBegin().toLocaleString() + "\n");
@@ -193,10 +193,10 @@ public class AlarmManagerThread extends Thread {
                     Alarm alarm=new Alarm(e.getTitle(), e.getBegin().getHours(), e
                         .getBegin().getMinutes());
 				alarms.add(alarm);
-			} else {
-				appendText("Real Gcal event: " + e.getTitle()
-						+ " starts in past - not using\n");
-			}
+			//} else {
+			//	appendText("Real Gcal event: " + e.getTitle()
+			//			+ " starts in past - not using\n");
+			//}
 		}
 
 		return alarms;
